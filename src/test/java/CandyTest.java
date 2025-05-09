@@ -41,40 +41,110 @@ public class CandyTest {
     }
 
     // # BEGIN TODO: Additional test cases
-    // Division possible with small numbers.
+    /** Division possible with small numbers. */
     @Test
     public void testDividePossibleSmall() {
         check(4, 20, true);
     }
 
-    // Division impossible when candies not multiple of kids.
+    /** Division impossible when candies not multiple of kids. */
     @Test
     public void testDivideImpossible() {
         check(4, 21, false);
     }
 
-    // Zero candies should be divisible among any positive number of kids.
+    /** Zero candies among positive kids is always possible. */
     @Test
-    public void testDivideZeroCandies() {
+    public void testZeroCandies() {
         check(5, 0, true);
     }
 
-    // Zero kids makes division impossible.
+    /** Zero kids & some candies is impossible. */
     @Test
-    public void testDivideZeroKids() {
+    public void testZeroKidsSomeCandies() {
         check(0, 10, false);
     }
 
-    // Division with maximum allowed values.
+    /** Zero kids & zero candies is considered possible (everyone gets zero). */
     @Test
-    public void testDivideMaxValueFair() {
+    public void testZeroKidsZeroCandies() {
+        check(0, 0, true);
+    }
+
+    /** Exactly one kid should always get all candies. */
+    @Test
+    public void testOneKid() {
+        check(1, 123456789L, true);
+    }
+
+    /** Each kid gets one candy. */
+    @Test
+    public void testEachGetsOne() {
+        check(7, 7, true);
+    }
+
+    /**
+     * Candies fewer than kids makes fair division impossible (except when candies
+     * are 0).
+     */
+    @Test
+    public void testCandiesLessThanKids() {
+        check(10, 3, false);
+    }
+
+    /** Large divisible numbers near the upper bound. */
+    @Test
+    public void testLargeDivisible() {
+        long k = 99999999999999999L; // < MAX_VALUE
+        long q = 8L;
+        long c = k * q;
+        check(k, c, true);
+    }
+
+    /** Large non‑divisible numbers near the upper bound. */
+    @Test
+    public void testLargeNonDivisible() {
+        long k = 99999999999999991L; // prime‑ish
+        long c = 99999999999999989L; // not a multiple of k
+        check(k, c, false);
+    }
+
+    /** Division with maximum allowed equal values. */
+    @Test
+    public void testMaxValueFair() {
         check(MAX_VALUE, MAX_VALUE, true);
     }
 
-    // Max values but not divisible.
+    /** One kid and maximum candies. */
     @Test
-    public void testDivideMaxValueNotFair() {
-        check(MAX_VALUE, MAX_VALUE - 1, false);
+    public void testOneKidMaxCandies() {
+        check(1, MAX_VALUE, true);
+    }
+
+    /** Remainder classes when dividing by 10 should be impossible. */
+    @Test
+    public void testAllRemaindersMod10() {
+        for (int r = 1; r < 10; r++) {
+            long k = 10;
+            long c = 100 + r; // 10 * 10 + r -> not divisible
+            check(k, c, false);
+        }
+    }
+
+    /** Deterministic pseudo‑random sweep to expose edge combinations. */
+    @Test
+    public void testDeterministicSweep() {
+        long[] kids = { 2, 3, 5, 8, 13, 21, 34, 55 };
+        long[] multipliers = { 0, 1, 2, 7, 42 };
+        for (long k : kids) {
+            for (long m : multipliers) {
+                long c = k * m;
+                check(k, c, true);
+                if (m > 0) {
+                    check(k, c + 1, false); // off‑by‑one candies should fail
+                }
+            }
+        }
     }
     // # END TODO
 
