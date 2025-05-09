@@ -45,13 +45,12 @@ public class Candy {
     static long divide(long k, long c) {
         long result; // value to be returned
         // # BEGIN TODO: Provide method implementation
-        if (k == 0) { // Division by zero is undefined in this context
-            result = -1; // Indicate impossibility
-        } else if (c % k != 0) { // Candies cannot be divided evenly
-            result = -1; // Indicate impossibility
-        } else {
-            result = c / k; // Fair share for each kid
+        if (k == 0) {
+            return (c == 0) ? 0L : -1L;
         }
+
+        /* A fair split exists iff k | c (k divides c). */
+        result = (c % k == 0) ? c / k : -1L;
         // # END TODO
         return result;
     }
