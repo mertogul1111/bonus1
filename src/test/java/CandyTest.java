@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
  * Every method starting with the word "test" will be called when running
  * the test with JUnit.
  *
-<!--//# BEGIN TODO: Name, student ID, and date-->
-<p><b>Replace this line</b></p>
-<!--//# END TODO-->
+ * <!--//# BEGIN TODO: Name, student ID, and date-->
+ * <p>
+ * <b>Replace this line</b>
+ * </p>
+ * <!--//# END TODO-->
  */
 public class CandyTest {
 
@@ -38,8 +40,42 @@ public class CandyTest {
         check(3, 15, true);
     }
 
-//# BEGIN TODO: Additional test cases
-// Replace this line
-//# END TODO
+    // # BEGIN TODO: Additional test cases
+    // Division possible with small numbers.
+    @Test
+    public void testDividePossibleSmall() {
+        check(4, 20, true);
+    }
+
+    // Division impossible when candies not multiple of kids.
+    @Test
+    public void testDivideImpossible() {
+        check(4, 21, false);
+    }
+
+    // Zero candies should be divisible among any positive number of kids.
+    @Test
+    public void testDivideZeroCandies() {
+        check(5, 0, true);
+    }
+
+    // Zero kids makes division impossible.
+    @Test
+    public void testDivideZeroKids() {
+        check(0, 10, false);
+    }
+
+    // Division with maximum allowed values.
+    @Test
+    public void testDivideMaxValueFair() {
+        check(MAX_VALUE, MAX_VALUE, true);
+    }
+
+    // Max values but not divisible.
+    @Test
+    public void testDivideMaxValueNotFair() {
+        check(MAX_VALUE, MAX_VALUE - 1, false);
+    }
+    // # END TODO
 
 }

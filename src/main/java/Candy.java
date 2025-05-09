@@ -19,9 +19,11 @@
  * <p>
  * Apply Test-Driven Development to solve this problem.
  *
-<!--//# BEGIN TODO: Name, student ID, and date-->
-<p><b>Mert Ogul 1935992 09/05/2025</b></p>
-<!--//# END TODO-->
+ * <!--//# BEGIN TODO: Name, student ID, and date-->
+ * <p>
+ * <b>Mert Ogul 1935992 09/05/2025</b>
+ * </p>
+ * <!--//# END TODO-->
  */
 public class Candy {
 
@@ -30,10 +32,10 @@ public class Candy {
      * that the division is impossible, and otherwise,
      * returns the number of candies each kid gets.
      *
-     * @param k  number of kids
-     * @param c  number of candies
+     * @param k number of kids
+     * @param c number of candies
      * @return a negative value when division is impossible,
-     *   and otherwise the number of candies each kid gets
+     *         and otherwise the number of candies each kid gets
      * @pre {@code 0 <= k < 10^18 && 0 <= c < 10^18}
      * @post {@code
      *   \return < 0 && \not (\exists int q; 0 <= q < 10^18; c == q * k)
@@ -42,9 +44,15 @@ public class Candy {
      */
     static long divide(long k, long c) {
         long result; // value to be returned
-//# BEGIN TODO: Provide method implementation
-// Replace this line
-//# END TODO
+        // # BEGIN TODO: Provide method implementation
+        if (k == 0) { // Division by zero is undefined in this context
+            result = -1; // Indicate impossibility
+        } else if (c % k != 0) { // Candies cannot be divided evenly
+            result = -1; // Indicate impossibility
+        } else {
+            result = c / k; // Fair share for each kid
+        }
+        // # END TODO
         return result;
     }
 
